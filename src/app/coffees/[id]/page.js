@@ -4,6 +4,7 @@ import { coffees, getCoffeeById } from "@/app/lib/coffees";
 import { getServerSession } from "next-auth/next";
 import authOptions from "@/app/lib/authOptions";
 import { redirect } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
 // Next.js passes params to the page function
 const CoffeeDetails = async ({ params }) => {
@@ -30,14 +31,24 @@ const CoffeeDetails = async ({ params }) => {
         );
     }
 
+    const textShadow = {
+        textShadow: "0px 0px 8px rgba(0, 0, 0, 0.6)",
+        letterSpacing: "1px",
+    };
+
     return (
-        <div className="max-w-4xl mx-auto py-10 px-4">
-            <Link
-                href="/coffees"
-                className="text-blue-500 underline mb-4 inline-block"
-            >
-                &larr; Back to Coffee List
-            </Link>
+        <div className="max-w-4xl mx-auto py-10 px-4 font-raleway">
+            <div className="my-6">
+                <Link href="/" className="flex items-center text-primary font-rancho">
+                    <FaArrowLeft className="w-4 h-4 mr-2" />
+                    <span
+                        style={textShadow}
+                        className="pri-font text-xl font-semibold"
+                    >
+                        Back to home
+                    </span>
+                </Link>
+            </div>
 
             <div className="flex flex-col md:flex-row gap-8 bg-[#f5f4f1a9] p-6 rounded-md">
                 <img
