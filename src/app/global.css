@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.font-rancho {
+    font-family: var(--font-rancho);
+}
+
+.font-raleway {
+    font-family: var(--font-raleway);
+}
