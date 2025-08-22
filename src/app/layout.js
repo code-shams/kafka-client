@@ -2,6 +2,7 @@ import { Rancho, Raleway } from "next/font/google";
 import "./global.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import SessionWrapper from "./components/SessionWrapper";
 
 const rancho = Rancho({
     variable: "--font-rancho",
@@ -25,9 +26,13 @@ export default function RootLayout({ children }) {
             <body
                 className={`${rancho.variable} ${raleway.variable} antialiased`}
             >
-                <Navbar></Navbar>
-                <main className="min-h-[calc(100vh-700px)]">{children}</main>
-                <Footer></Footer>
+                <SessionWrapper>
+                    <Navbar></Navbar>
+                    <main className="min-h-[calc(100vh-700px)]">
+                        {children}
+                    </main>
+                    <Footer></Footer>
+                </SessionWrapper>
             </body>
         </html>
     );
