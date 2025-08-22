@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Kafka Coffee Shop
 
-## Getting Started
+A simple coffee shop web application built with **Next.js 15 (App Router)** and **NextAuth.js** for authentication. Users can view coffees, see details, and, after logging in, add new coffees via a protected dashboard.
 
-First, run the development server:
+**Live Site:** [https://kafka-client.vercel.app/](https://kafka-client.vercel.app/)
+
+---
+
+## Features
+
+### Public Pages
+- **Landing Page (`/`)**: Hero section, featured coffee highlights, and navigation.
+- **Coffee List (`/coffees`)**: Displays all available coffees with name, roast, price, and image.
+- **Coffee Details (`/coffees/[id]`)**: Detailed view of a single coffee.
+
+### Authentication
+- **Login (`/login`)**: Google OAuth login via NextAuth.
+- Protected pages redirect unauthenticated users to login.
+
+### Protected Pages
+- **Add Coffee (`/dashboard/add-coffee`)**: Form to add a new coffee (requires login).  
+- Stores data in memory for the MVP (resets on server restart).
+
+---
+
+## Technologies Used
+
+- **Next.js 15 (App Router)**  
+- **NextAuth.js** (Google OAuth authentication)  
+- **React & Tailwind CSS**  
+- **React Icons** (FaEye, FaArrowLeft, PiCoffee, etc.)  
+- Mock backend using in-memory data and API Routes  
+
+---
+
+## Project Structure
+
+```
+
+app/
+├─ layout.js
+├─ page.js                     # Landing page
+├─ login/page.js               # Login page
+├─ coffees/page.js             # Coffee list
+├─ coffees/\[id]/page.js        # Coffee details
+├─ dashboard/add-coffee/page.js # Protected add coffee page
+├─ api/
+│   ├─ auth/\[...nextauth]/route.js  # NextAuth routes
+│   └─ coffees/route.js             # Coffee GET/POST API
+components/
+├─ Navbar.js
+├─ Footer.js
+├─ CoffeeCard.js
+├─ CoffeeForm.js
+lib/
+├─ coffees.js                  # Mock coffee data
+├─ authOptions.js              # NextAuth config
+
+````
+
+---
+
+## Setup & Installation
+
+1. Clone the repository:
+
+```bash
+git clone <your-repo-link>
+cd kafka
+````
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create `.env.local` file in the project root:
+
+```
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=<your-secret-key>
+GOOGLE_CLIENT_ID=<your-google-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Routes Summary
 
-## Learn More
+| Route                   | Description                       | Access                       |
+| ----------------------- | --------------------------------- | ---------------------------- |
+| `/`                     | Landing page                      | Public                       |
+| `/login`                | Login page                        | Public                       |
+| `/coffees`              | Coffee list                       | Public                       |
+| `/coffees/[id]`         | Coffee details                    | Public                       |
+| `/dashboard/add-coffee` | Add new coffee                    | Protected (login required)   |
+| `/api/coffees`          | GET all coffees / POST add coffee | GET: Public, POST: Protected |
+| `/api/auth/...`         | NextAuth endpoints                | Public                       |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* Coffee data is currently stored in memory (resets on server restart). For production, integrate a database like MongoDB.
+* Google OAuth must be configured with correct **Authorized Redirect URI**:
+  `https://kafka-client.vercel.app/api/auth/callback/google`
+* Styling is built with Tailwind CSS for rapid MVP development.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Maksudur Rahman**
+
+```
