@@ -1,21 +1,12 @@
 // app/coffees/[id]/page.js
 import Link from "next/link";
-import { coffees, getCoffeeById } from "@/app/lib/coffees";
-import { getServerSession } from "next-auth/next";
-import authOptions from "@/app/lib/authOptions";
-import { redirect } from "next/navigation";
+import { getCoffeeById } from "@/app/lib/coffees";
 import { FaArrowLeft } from "react-icons/fa";
 
 // Next.js passes params to the page function
 const CoffeeDetails = async ({ params }) => {
     const { id } = params;
     const coffee = getCoffeeById(id);
-
-    const session = await getServerSession(authOptions);
-
-    if (!session) {
-        return redirect("/login");
-    }
 
     if (!coffee) {
         return (
@@ -39,7 +30,10 @@ const CoffeeDetails = async ({ params }) => {
     return (
         <div className="max-w-4xl mx-auto py-10 px-4 font-raleway">
             <div className="my-6">
-                <Link href="/" className="flex items-center text-primary font-rancho">
+                <Link
+                    href="/"
+                    className="flex items-center text-primary font-rancho"
+                >
                     <FaArrowLeft className="w-4 h-4 mr-2" />
                     <span
                         style={textShadow}
